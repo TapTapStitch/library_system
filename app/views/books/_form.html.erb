@@ -1,0 +1,37 @@
+<%= form_with(model: book) do |form| %>
+  <% if book.errors.any? %>
+    <% flash[:alert] = pluralize(book.errors.count, "error") + " prohibited this book from being saved:" %>
+    <% book.errors.full_messages.each do |msg| %>
+      <% flash[:alert] += "<br/>- " + msg %>
+    <% end %>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :author, style: "display: block" %>
+    <%= form.text_field :author %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :ISBN, style: "display: block" %>
+    <%= form.text_field :ISBN %>
+  </div>
+
+  <div>
+    <%= form.label :published_date, style: "display: block" %>
+    <%= form.date_field :published_date %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

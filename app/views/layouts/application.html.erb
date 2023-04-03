@@ -11,12 +11,7 @@
 </head>
 
 <body>
-<% if notice || alert %>
-  <div>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-  </div>
-<% end %>
+<%= render "layouts/flashes" %>
 <div>
   <%= yield %>
 </div>
