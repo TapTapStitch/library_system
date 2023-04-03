@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: taptapstitch
+
+development:
+  <<: *default
+  database: library_system_development
+
+test:
+  <<: *default
+  database: library_system_test
+
+production:
+  <<: *default
+  database: library_system_production
+  username: library_system
+  password: <%= ENV["LIBRARY_SYSTEM_DATABASE_PASSWORD"] %>

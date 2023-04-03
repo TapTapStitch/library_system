@@ -1,0 +1,18 @@
+<h1>Pages#Home</h1>
+
+<% if current_user %>
+  <p>Hello <%= current_user.email %> !</p>
+  <p>You are a <%= current_user.role %></p>
+  <p>
+    You have successfully authenticated with your Devise account.
+    You are now ready to interact with this application.
+  </p>
+  <% if current_user.admin? %>
+    Users created: <%= User.count %>
+  <% end %>
+  <p><%= link_to "Sign Out", destroy_user_session_path, 'data-turbo-method': :delete %></p>
+<% else %>
+  <p>You are not signed in.</p>
+  <p><%= link_to "Sign Up", new_user_registration_path %></p>
+  <p><%= link_to "Login", new_user_session_path %></p>
+<% end %>
