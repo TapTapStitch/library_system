@@ -1,12 +1,6 @@
 <h1>Update User roles</h1>
 <div>
-  <% @users.each do |user| %>
-    <div>
-      <p>User:</p>
-      <p>email: <%= user.email %></p>
-      <p>status: <%= user.role %></p>
-    </div>
-  <% end %>
+  <%= render partial: 'user', collection: @users %>
 </div>
 <div>
   <%= form_with method: :get do |f| %>

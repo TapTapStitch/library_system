@@ -9,6 +9,7 @@
     <p><%= link_to "Update user roles", update_user_role_path %></p>
   <% end %>
   <p><%= link_to "Books list", books_path %></p>
+  <p><%= link_to "Edit my Account", edit_user_registration_path%></p>
   <p><%= link_to "Sign Out", destroy_user_session_path, 'data-turbo-method': :delete %></p>
 <% else %>
   <p>You must login or sign up before using Library</p>
