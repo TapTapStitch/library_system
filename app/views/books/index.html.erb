@@ -1,14 +1,9 @@
 <h1>Books</h1>
-<p><%= link_to "To home page", root_path %></p>
-<div id="books">
-  <% @books.each do |book| %>
-    <%= render book %>
-    <p>
-      <%= link_to "Show this book", book %>
-    </p>
-  <% end %>
-</div>
-
 <% if current_user.librarian? || current_user.admin? %>
   <p><%= link_to "New book", new_book_path %></p>
 <% end %>
+<p><%= link_to "To home page", root_path %></p>
+<div id="books">
+  <%= render partial: 'book', collection: @books %>
+</div>
+
