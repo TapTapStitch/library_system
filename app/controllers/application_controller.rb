@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_is_librarian?
-    return if current_user.librarian?
+    return if current_user.librarian? || current_user.admin?
 
     redirect_to root_path, alert: 'You must be Librarian to access that.'
   end
