@@ -7,30 +7,29 @@ class PagesController < ApplicationController
 
   def index; end
 
+  # rubocop:disable all
   def update_user_role
     @users = User.where(role: [0, 1])
 
     return unless params[:email].present? && params[:role].present?
 
     @user = User.find_by(email: params[:email], role: [0, 1])
-    if @user.present?
-      return unless check_allowed_role
 
+    if @user.present? && check_allowed_role
       @user.update(role: params[:role])
       redirect_to update_user_role_path, notice: 'User role updated successfully.'
     else
-      redirect_to update_user_role_path, alert: 'User not found.'
+      flash.alert = 'User not found.' unless @user.present?
+      flash.alert = 'Invalid role.' unless check_allowed_role
+      redirect_to update_user_role_path
     end
   end
+
+  # rubocop:enable all
 
   private
 
   def check_allowed_role
-    if ALLOWED_ROLES.include?(params[:role])
-      true
-    else
-      flash.alert = 'Such role not exits'
-      false
-    end
+    ALLOWED_ROLES.include?(params[:role])
   end
 end

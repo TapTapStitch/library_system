@@ -1,0 +1,12 @@
+<h1>My books</h1>
+<% if @books.any? %>
+  <ul>
+    <% @books.each do |book| %>
+      <li><%= book.title %> by <%= book.author %></li>
+      <p><%= button_to "Return", return_book_path(book), method: :post %></p>
+
+    <% end %>
+  </ul>
+<% else %>
+  <p>You haven't borrowed books.</p>
+<% end %>

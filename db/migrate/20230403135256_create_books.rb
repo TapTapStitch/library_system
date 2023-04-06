@@ -8,6 +8,7 @@ class CreateBooks < ActiveRecord::Migration[7.0]
       t.text :description
       t.string :ISBN
       t.date :published_date
+      t.integer :status, limit: 1, default: 0, null: false
 
       t.timestamps
     end

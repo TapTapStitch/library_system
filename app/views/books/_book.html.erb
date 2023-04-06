@@ -23,8 +23,13 @@
     <strong>Published date:</strong>
     <%= book.published_date %>
   </p>
-
   <p>
-    <%= link_to "Show this book", book %>
+    <strong>Status:</strong>
+    <%= book.status.capitalize %>
   </p>
+  <% if show_link? %>
+    <p>
+      <%= link_to "Show this book", book %>
+    </p>
+  <% end %>
 </div>

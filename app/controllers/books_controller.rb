@@ -17,6 +17,36 @@ class BooksController < ApplicationController
 
   def edit; end
 
+  def user
+    @books = current_user.books
+  end
+
+  def borrow
+    @book = Book.find(params[:id])
+    if @book.available?
+      borrow = current_user.borrows.build(book: @book)
+      if borrow.save
+        @book.update(status: :borrowed)
+        redirect_to @book, notice: 'Book has been borrowed.'
+      else
+        redirect_to @book, alert: borrow.errors.full_messages.to_sentence
+      end
+    else
+      redirect_to @book, alert: 'Book is not available.'
+    end
+  end
+
+  def return
+    @book = Book.find(params[:id])
+
+    if (current_user.librarian? || current_user.admin?) || current_user.books.include?(@book)
+      Borrow.find_by(book_id: @book.id).destroy
+      redirect_to @book, notice: 'Book has been returned.'
+    else
+      redirect_to @book, alert: 'Book cannot be returned.'
+    end
+  end
+
   def create
     @book = Book.new(book_params)
 
