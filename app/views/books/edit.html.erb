@@ -1,10 +1,11 @@
-<h1>Editing book</h1>
+<h1 class="display-4 mb-5">Editing book</h1>
 
-<%= render "form", book: @book %>
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <%= render "form", book: @book %>
+  </div>
+</div>
 
-<br>
-
-<div>
-  <%= link_to "Show this book", @book %> |
-  <%= link_to "Back to books", books_path %>
+<div class="mt-5">
+  <%= link_to "Back to books", books_path, class: "btn btn-secondary" %>
 </div>

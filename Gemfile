@@ -7,6 +7,10 @@ ruby '3.2.0'
 
 gem 'devise'
 
+gem 'devise-i18n'
+
+gem 'devise-bootstrap5'
+
 gem 'pagy'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"

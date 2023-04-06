@@ -1,20 +1,26 @@
-<%= render @book %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <%= render @book %>
 
-<div>
-  <p><%= link_to "Back to books", books_path %></p>
-  <% if current_user.librarian? || current_user.admin? %>
-    <p><%= link_to "Edit this book", edit_book_path(@book) %></p>
-    <p><%= button_to "Destroy this book", @book, method: :delete %></p>
-    <% if @book.available? %>
-      <%= button_to "Borrow book", borrow_book_path(@book), method: :post %>
-    <% elsif @book.borrowed? %>
-      <%= button_to "Return book", return_book_path(@book), method: :post %>
-    <% end %>
-  <% else %>
-    <% if @book.available? %>
-      <%= button_to "Borrow book", borrow_book_path(@book), method: :post %>
-    <% elsif @book.borrowed? && current_user.books.include?(@book) %>
-      <%= button_to "Return book", return_book_path(@book), method: :post %>
-    <% end %>
-  <% end %>
+      <div class="mt-4">
+        <p><%= link_to "Back to books", books_path, class: "btn btn-secondary" %></p>
+        <% if current_user.librarian? || current_user.admin? %>
+          <p><%= link_to "Edit this book", edit_book_path(@book), class: "btn btn-primary" %></p>
+          <p><%= button_to "Destroy this book", @book, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></p>
+          <% if @book.available? %>
+            <%= button_to "Borrow book", borrow_book_path(@book), method: :post, class: "btn btn-success" %>
+          <% elsif @book.borrowed? %>
+            <%= button_to "Return book", return_book_path(@book), method: :post, class: "btn btn-warning" %>
+          <% end %>
+        <% else %>
+          <% if @book.available? %>
+            <%= button_to "Borrow book", borrow_book_path(@book), method: :post, class: "btn btn-success" %>
+          <% elsif @book.borrowed? && current_user.books.include?(@book) %>
+            <%= button_to "Return book", return_book_path(@book), method: :post, class: "btn btn-warning" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

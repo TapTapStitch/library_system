@@ -1,16 +1,23 @@
-<h1>Update User roles</h1>
-<div>
+<h1 class="fw-bold mb-4">Update User Roles</h1>
+<div class="table-responsive">
   <%= render partial: 'user', collection: @users %>
 </div>
-<div>
-  <%= form_with method: :get do |f| %>
-    <%= f.label :email %>
-    <%= f.select :email, options_for_select(@users.map { |user| user.email }) %>
+<div class="row">
+  <div class="col-md-6">
+    <%= form_with method: :get, class: "row g-3" do |f| %>
+      <div class="col-md-6">
+        <%= f.label :email, class: "form-label" %>
+        <%= f.select :email, options_for_select(@users.map { |user| user.email }), {prompt: "Choose email"}, class: "form-select" %>
+      </div>
 
-    <%= f.label :role %>
-    <%= f.select :role, options_for_select([['Student', 'student'], ['Librarian', 'librarian']]), required: true %>
+      <div class="col-md-6">
+        <%= f.label :role, class: "form-label" %>
+        <%= f.select :role, options_for_select([['Student', 'student'], ['Librarian', 'librarian']]), {prompt: "Choose role"}, class: "form-select", required: true %>
+      </div>
 
-
-    <%= f.submit "Update user role" %>
-  <% end %>
+      <div class="col-12">
+        <%= f.submit "Update User Role", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
 </div>
