@@ -18,10 +18,16 @@ Style/ParallelAssignment:
 Style/RegexpLiteral:
   Enabled: false
 
+Rails/I18nLocaleTexts:
+  Enabled: false
+
 # Layout ----------------------------------------------------------------------
 
 Layout/LineLength:
   Max: 200
+
+Metrics/MethodLength:
+  Max: 20
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented

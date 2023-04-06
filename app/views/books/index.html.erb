@@ -1,0 +1,21 @@
+<h1 class="mb-4">Books</h1>
+<% if current_user.librarian? || current_user.admin? %>
+  <div class="mb-3">
+    <%= link_to "New book", new_book_path, class: "btn btn-primary me-3" %>
+  </div>
+<% end %>
+<div class="mb-3">
+  <%= link_to "Search books", search_books_path, class: "btn btn-outline-secondary me-3" %>
+  <%= link_to "To home page", root_path, class: "btn btn-outline-secondary" %>
+</div>
+<div id="books">
+  <% if @books.any? %>
+    <p class="mb-4">There are <%= @books_count %> books.</p>
+    <%= render partial: 'book', collection: @books %>
+    <div class="pagination">
+      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1  %>
+    </div>
+  <% else %>
+    <p>Books not found.</p>
+  <% end %>
+</div>

@@ -7,6 +7,12 @@ ruby '3.2.0'
 
 gem 'devise'
 
+gem 'devise-i18n'
+
+gem 'devise-bootstrap5'
+
+gem 'pagy'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 
@@ -69,3 +75,5 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+
+gem 'dockerfile-rails', '>= 1.2', group: :development

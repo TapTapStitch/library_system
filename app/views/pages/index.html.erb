@@ -1,18 +1,24 @@
-<h1>Pages#Home</h1>
+<h1 class="display-4">Library</h1>
 
 <% if current_user %>
-  <p>Hello <%= current_user.email %> !</p>
-  <p>You are a <%= current_user.role %></p>
-  <p>
-    You have successfully authenticated with your Devise account.
-    You are now ready to interact with this application.
-  </p>
+  <p>Hello <%= current_user.email %>!</p>
+  <p>Your role:  <%= current_user.role.capitalize %></p>
+  <p>You are now ready to interact with this application.</p>
   <% if current_user.admin? %>
-    Users created: <%= User.count %>
+    <p>Accounts created: <%= User.count %></p>
+    <p><%= link_to "Manage Users", manage_users_path, class: "btn btn-outline-primary" %></p>
   <% end %>
-  <p><%= link_to "Sign Out", destroy_user_session_path, 'data-turbo-method': :delete %></p>
+  <% if current_user.librarian? %>
+    <p>Books in library: <%= Book.count %></p>
+    <p>Books taken: <%= Borrow.count %></p>
+  <% end %>
+  <p><%= link_to "Search books", search_books_path, class: "btn btn-outline-primary" %></p>
+  <p><%= link_to "Books list", books_path, class: "btn btn-outline-primary" %></p>
+  <p><%= link_to "My books", user_books_path, class: "btn btn-outline-primary" %></p>
+  <p><%= link_to "Edit my Account", edit_user_registration_path, class: "btn btn-outline-primary" %></p>
+  <p><%= link_to "Sign Out", destroy_user_session_path, 'data-turbo-method': :delete, class: "btn btn-danger" %></p>
 <% else %>
-  <p>You are not signed in.</p>
-  <p><%= link_to "Sign Up", new_user_registration_path %></p>
-  <p><%= link_to "Login", new_user_session_path %></p>
+  <p>You must login or sign up before using Library</p>
+  <p><%= link_to "Login", new_user_session_path, class: "btn btn-primary" %></p>
+  <p><%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %></p>
 <% end %>

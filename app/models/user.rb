@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_many :borrows, dependent: :destroy
+  has_many :books, through: :borrows
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  enum role: { user: 0, librarian: 1, admin: 2 }
+  enum role: { student: 0, librarian: 1, admin: 2 }
   after_initialize :set_default_role, if: :new_record?
 
   def set_default_role
-    role || :user
+    role || :student
   end
 end
