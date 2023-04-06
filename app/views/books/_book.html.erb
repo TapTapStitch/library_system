@@ -7,6 +7,10 @@
       <li><strong>ISBN:</strong> <%= book.ISBN %></li>
       <li><strong>Published date:</strong> <%= book.published_date %></li>
       <li><strong>Status:</strong> <%= book.status.capitalize %></li>
+      <% if (current_user.librarian? || current_user.admin?) && book.borrowed? %>
+        <li><strong>Borrowed date: </strong> <%= book.borrows.last.created_at.strftime('%d/%m/%Y') %></li>
+        <li><strong>Borrowed by:</strong> <%= book.borrows.last.user_email %></li>
+      <% end %>
     </ul>
     <% if show_link? %>
       <div class="text-end">
