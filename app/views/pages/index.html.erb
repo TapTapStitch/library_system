@@ -6,12 +6,11 @@
   <p>You are now ready to interact with this application.</p>
   <% if current_user.admin? %>
     <p>Accounts created: <%= User.count %></p>
-    <p><%= link_to "Update user roles", update_user_role_path, class: "btn btn-outline-primary" %></p>
+    <p><%= link_to "Manage Users", manage_users_path, class: "btn btn-outline-primary" %></p>
   <% end %>
   <% if current_user.librarian? %>
     <p>Books in library: <%= Book.count %></p>
     <p>Books taken: <%= Borrow.count %></p>
-    <p><%= link_to "Update user roles", update_user_role_path, class: "btn btn-outline-primary" %></p>
   <% end %>
   <p><%= link_to "Search books", search_books_path, class: "btn btn-outline-primary" %></p>
   <p><%= link_to "Books list", books_path, class: "btn btn-outline-primary" %></p>

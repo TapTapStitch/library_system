@@ -1,9 +1,14 @@
-<h1 class="fw-bold mb-4">Update User Roles</h1>
+<h3 class="fw-bold mb-4">Manage Users</h3>
 <div class="table-responsive">
-  <%= render partial: 'user', collection: @users %>
+  <% if @users.any? %>
+    <%= render partial: 'user', collection: @users %>
+  <% else %>
+    <p class="fs-5 text-muted">There no users.</p>
+  <% end %>
 </div>
 <div class="row">
   <div class="col-md-6">
+    <h3 class="fw-bold mb-4">Update User Roles</h3>
     <%= form_with method: :get, class: "row g-3" do |f| %>
       <div class="col-md-6">
         <%= f.label :email, class: "form-label" %>
@@ -20,8 +25,9 @@
       </div>
     <% end %>
   </div>
-  <div class="row">
-    <%= form_with url: delete_user_path, method: :delete, class: "row g-3" do |f| %>
+  <div class="col-md-6">
+    <h3 class="fw-bold mb-4">Delete Users</h3>
+    <%= form_with url: delete_user_path, method: :get, class: "row g-3" do |f| %>
       <div class="col-md-6">
         <%= f.label :email, class: "form-label" %>
         <%= f.select :email, options_for_select(@users.map { |user| user.email }), { prompt: "Choose email" }, class: "form-select" %>

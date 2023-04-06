@@ -2,13 +2,13 @@
 
 class PagesController < ApplicationController
   ALLOWED_ROLES = %w[student librarian].freeze
-  before_action :authenticate_user!, only: %i[update_user_role delete_user]
-  before_action :user_is_admin?, only: %i[update_user_role delete_user]
+  before_action :authenticate_user!, only: %i[manage_users delete_user]
+  before_action :user_is_admin?, only: %i[manage_users delete_user]
 
   def index; end
 
   # rubocop:disable all
-  def update_user_role
+  def manage_users
     @users = User.where(role: [0, 1])
 
     return unless params[:email].present? && params[:role].present?
@@ -17,11 +17,11 @@ class PagesController < ApplicationController
 
     if @user.present? && check_allowed_role
       @user.update(role: params[:role])
-      redirect_to update_user_role_path, notice: 'User role updated successfully.'
+      redirect_to manage_users_path, notice: 'User role updated successfully.'
     else
       flash.alert = 'User not found.' unless @user.present?
       flash.alert = 'Invalid role.' unless check_allowed_role
-      redirect_to update_user_role_path
+      redirect_to manage_users_path
     end
   end
 
@@ -29,9 +29,9 @@ class PagesController < ApplicationController
     @user = User.find_by(email: params[:email], role: [0, 1])
 
     if @user.destroy
-      redirect_to update_user_role_path, notice: "User deleted."
+      redirect_to manage_users_path, notice: "User deleted."
     else
-      redirect_to update_user_role_path, notice: "User not found."
+      redirect_to manage_users_path, notice: "User not found."
     end
   end
 
