@@ -2,8 +2,14 @@
 <% if current_user.librarian? || current_user.admin? %>
   <p><%= link_to "New book", new_book_path %></p>
 <% end %>
+<p><%= link_to "Search books", search_books_path %></p>
 <p><%= link_to "To home page", root_path %></p>
 <div id="books">
-  <%= render partial: 'book', collection: @books %>
+  <% if @books.any? %>
+    <p>There are <%= @books_count %> books.</p>
+    <%= render partial: 'book', collection: @books %>
+    <p><%== pagy_nav(@pagy) if @pagy.pages > 1 %></p>
+  <% else %>
+    <p>Books not found.</p>
+  <% end %>
 </div>
-

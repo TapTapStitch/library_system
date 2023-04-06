@@ -6,7 +6,9 @@ class BooksController < ApplicationController
   before_action :user_is_librarian?, only: %i[new edit create update destroy]
 
   def index
-    @books = Book.all
+    @books = SearchBooks.new(Book.all.order(id: :desc), search_params).call
+    @books_count = @books.length.to_s
+    @pagy, @books = pagy(@books)
   end
 
   def show; end
@@ -74,7 +76,6 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -86,5 +87,9 @@ class BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(:title, :author, :description, :ISBN, :published_date)
+  end
+
+  def search_params
+    params.permit(:title, :author, :description, :ISBN, :status)
   end
 end

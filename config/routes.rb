@@ -3,11 +3,12 @@
 Rails.application.routes.draw do
   resources :books do
     member do
-      post 'borrow'
-      post 'return'
+      post :borrow
+      post :return
     end
     collection do
-      get 'user'
+      get :search
+      get :user
     end
   end
   root 'pages#index'

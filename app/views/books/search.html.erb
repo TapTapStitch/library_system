@@ -1,0 +1,16 @@
+<h1>Search:</h1>
+<div>
+  <%= form_with url: books_path, method: :get, data: { turbo: false }, class: 'books_form' do |f| %>
+    <p>Search by Title:</p>
+    <%= f.text_field :title %>
+    <p>Search by Author:</p>
+    <%= f.text_field :author %>
+    <p>Search by ISBN:</p>
+    <%= f.text_field :ISBN %>
+    <p>Search by Description:</p>
+    <%= f.text_area :description %>
+    <p>Search by Status:</p>
+    <%= f.select :status, [['Available', 'available'], ['Borrowed', 'borrowed']], { include_blank: true } %>
+    <p><%= f.submit 'Search' %></p>
+  <% end %>
+</div>

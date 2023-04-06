@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
+  Pagy::DEFAULT[:items] = 5
+
   def user_is_admin?
     return if current_user.admin?
 
