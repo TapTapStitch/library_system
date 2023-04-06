@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   end
   root 'pages#index'
   get '/update_user_role', to: 'pages#update_user_role'
-
+  delete '/delete_user', to: 'pages#delete_user'
   devise_for :users
 end

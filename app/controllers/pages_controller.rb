@@ -2,8 +2,8 @@
 
 class PagesController < ApplicationController
   ALLOWED_ROLES = %w[student librarian].freeze
-  before_action :authenticate_user!, only: [:update_user_role]
-  before_action :user_is_admin?, only: [:update_user_role]
+  before_action :authenticate_user!, only: %i[update_user_role delete_user]
+  before_action :user_is_admin?, only: %i[update_user_role delete_user]
 
   def index; end
 
@@ -22,6 +22,16 @@ class PagesController < ApplicationController
       flash.alert = 'User not found.' unless @user.present?
       flash.alert = 'Invalid role.' unless check_allowed_role
       redirect_to update_user_role_path
+    end
+  end
+
+  def delete_user
+    @user = User.find_by(email: params[:email], role: [0, 1])
+
+    if @user.destroy
+      redirect_to update_user_role_path, notice: "User deleted."
+    else
+      redirect_to update_user_role_path, notice: "User not found."
     end
   end
 
