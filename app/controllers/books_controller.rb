@@ -26,7 +26,7 @@ class BooksController < ApplicationController
   def borrow
     @book = Book.find(params[:id])
     if @book.available?
-      borrow = current_user.borrows.build(book: @book)
+      borrow = Borrow.new(book: @book, user: current_user)
       if borrow.save
         @book.update(status: :borrowed)
         redirect_to @book, notice: 'Book has been borrowed.'
