@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[show edit update destroy]
+  before_action :set_book, only: %i[show edit update destroy borrow return]
   before_action :authenticate_user!
   before_action :user_is_librarian?, only: %i[new edit create update destroy]
 
@@ -24,7 +24,6 @@ class BooksController < ApplicationController
   end
 
   def borrow
-    @book = Book.find(params[:id])
     if @book.available?
       borrow = Borrow.new(book: @book, user: current_user)
       if borrow.save
@@ -39,8 +38,6 @@ class BooksController < ApplicationController
   end
 
   def return
-    @book = Book.find(params[:id])
-
     if (current_user.librarian? || current_user.admin?) || current_user.books.include?(@book)
       Borrow.find_by(book_id: @book.id).destroy
       redirect_to @book, notice: 'Book has been returned.'
